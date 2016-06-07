@@ -106,6 +106,9 @@
       <cell title="panel" link="component/panel">
         <span class="demo-icon" slot="icon">&#xe658;</span>
       </cell>
+      <cell title="card" link="component/card">
+        <span class="demo-icon" slot="icon">&#xe658;</span>
+      </cell>
       <cell title="picker" link="component/picker">
         <span class="demo-icon" slot="icon">&#xe627;</span>
       </cell>
@@ -137,6 +140,9 @@
         <span class="demo-icon" slot="icon">&#xe615;</span>
       </cell>
       <cell title="tabbar" link="component/tabbar">
+        <span class="demo-icon" slot="icon">&#xe657;</span>
+      </cell>
+      <cell title="tabbar with link" link="component/tabbar-link">
         <span class="demo-icon" slot="icon">&#xe657;</span>
       </cell>
       <cell title="timeline" link="component/timeline">
