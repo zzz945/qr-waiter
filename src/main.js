@@ -78,6 +78,7 @@ import Close from './demos/Close'
 import Dialog from './demos/Dialog'
 import DateFormatter from './demos/Date-formatter'
 import Card from './demos/Card'
+import Iseekr from './demos/Iseekr'
 
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
@@ -315,6 +316,9 @@ router.map({
   },
   '/component/card': {
     component: Card
+  },
+  '/component/iseekr': {
+    component: Iseekr
   }
 })
 

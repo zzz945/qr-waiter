@@ -93,6 +93,9 @@
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.4.0",
-    "webpack-hot-middleware": "^2.6.0"
+    "webpack-hot-middleware": "^2.6.0",
+    "tiny-cookie": "^0.5.5",
+    "uuid": "^2.0.2",
+    "ua-device": "^0.1.6"
   }
 }
