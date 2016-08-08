@@ -1,8 +1,8 @@
 <template>
   <div>
-    <span v-text="time1 | date-formatter 'YYYY-MM-DD'"></span>
+    <span v-text="format(time1, 'YYYY-MM-DD')"></span>
     <br/>
-    <span v-text="time2 | date-formatter 'YYYY-MM-DD HH:mm:ss'"></span>
+    <span v-text="format(time2, 'YYYY-MM-DD HH:mm:ss')"></span>
   </div>
 </template>
 
@@ -12,6 +12,11 @@ import { DateFormatter } from '../components'
 export default {
   filters: {
     DateFormatter
+  },
+  methods: {
+    format (time, format) {
+      return DateFormatter(time, format)
+    }
   },
   data () {
     return {

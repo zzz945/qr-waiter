@@ -8,7 +8,7 @@
       <input v-model="value" :name="name" class="vux-number-input" :style="{width: width+'px'}" number :readonly="!fillable" pattern="[0-9]*"/>
       <a @click="add" class="vux-number-selector vux-number-selector-plus" :class="{'vux-number-disabled':disabledMax}">+</a>
     </div>
-    <div class="weui_cell_ft" v-else>
+    <div class="weui_cell_ft" v-show="readonly">
       {{value}}
     </div>
   </div>

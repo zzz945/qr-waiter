@@ -1,5 +1,5 @@
 <template>
-  <img :src="defaultSrc" class="vux-x-img" :class="class"/>
+  <img :src="defaultSrc" class="vux-x-img"/>
 </template>
 
 <script>
@@ -48,7 +48,6 @@ export default {
       type: Number,
       defaut: 100
     },
-    class: String,
     scroller: Object,
     container: String
   },

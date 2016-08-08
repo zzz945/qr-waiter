@@ -19,7 +19,7 @@
     <group-title>双向绑定</group-title>
     <picker :data='years' :value.sync='year3' @on-change='change3'></picker>
     <select v-model='year5'>
-      <option v-for='one in years[0]' value='{{one.value}}'>{{one.name}}</option>
+      <option v-for='one in years[0]' :value='one.value'>{{one.name}}</option>
     </select>
     <br>
     <group-title>非联动多列</group-title>

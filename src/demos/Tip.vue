@@ -1,9 +1,11 @@
 <template>
-  <number description="Default" title="Number"></number>
-  <tip>I am a tip.</tip>
+  <div>
+    <number description="Default" title="Number"></number>
+    <tip>I am a tip.</tip>
 
-  <number description="Default" title="Number"></number>
-  <tip align="center">I am a tip align center.</tip>
+    <number description="Default" title="Number"></number>
+    <tip align="center">I am a tip align center.</tip>
+  </div>
 </template>
 
 <script>

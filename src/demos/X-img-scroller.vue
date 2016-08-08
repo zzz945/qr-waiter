@@ -4,7 +4,7 @@
       <div>
         <div v-for="src in list" style="background-color:yellow;text-align:center;">
           <span style="font-size:20px;">Loading</span>
-          <x-img :src="src" :scroller="$refs.scroller" @on-success="success" @on-error="error" class="ximg-demo" error-class="ximg-error" :offset="300"></x-img>
+          <xxx :src="src" :scroller="$refs.scroller" @on-success="success" @on-error="error" class="ximg-demo" error-class="ximg-error" :offset="300"></xxx>
         </div>
       </div>
     </scroller>
@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import { XImg, Scroller } from '../components'
+import { XImg as XXX, Scroller } from '../components'
 export default {
   components: {
-    XImg,
+    XXX,
     Scroller
   },
   methods: {

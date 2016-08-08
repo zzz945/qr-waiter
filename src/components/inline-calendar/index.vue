@@ -17,7 +17,7 @@
     <table>
       <thead v-show="!hideWeekList">
         <tr>
-          <th v-for="(index, week) in weeksList" class="week is-week-list-{{index}}">{{week}}</th>
+          <th v-for="(index, week) in weeksList" :class="['week', 'is-week-list-'+index]">{{week}}</th>
         </tr>
       </thead>
       <tbody>

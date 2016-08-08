@@ -1,5 +1,4 @@
 <template>
-  <!-- Slider main container -->
   <div class="vux-swiper-container">
     <!-- Additional required wrapper -->
     <div class="vux-swiper-wrapper">
