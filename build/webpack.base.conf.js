@@ -25,15 +25,15 @@ module.exports = {
   module: {
     preLoaders: [
       {
-        test: /\.js$/, 
-        loader: "eslint-loader", 
+        test: /\.js$/,
+        loader: "eslint-loader",
         exclude: /node_modules/
       }
     ],
     loaders: [
       {
         test: /\.vue$/,
-        loader: 'vue'
+        loader: 'vux!vue'
       },
       {
         test: /\.js$/,
@@ -63,6 +63,14 @@ module.exports = {
     loaders: {
       js: 'babel!eslint'
     }
+  },
+  vux: {
+    plugins: [{
+      name: 'i18n',
+      test: /vux.*src.*components/,
+      language: 'zh-CN',
+      watch: false
+    }]
   },
   eslint: {
     formatter: require('eslint-friendly-formatter')

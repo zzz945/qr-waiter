@@ -10,7 +10,7 @@
       <div class="weui_dialog_hd"><strong class="weui_dialog_title">{{title}}</strong></div>
       <div class="weui_dialog_bd"><slot></slot></div>
       <div class="weui_dialog_ft">
-        <a href="javascript:;" class="weui_btn_dialog primary" @click="onHide">{{buttonText}}</a>
+        <a href="javascript:;" class="weui_btn_dialog primary" @click="onHide">{{buttonText || __('button_text')}}</a>
       </div>
     </dialog>
   </div>
@@ -26,10 +26,7 @@ export default {
   props: {
     show: Boolean,
     title: String,
-    buttonText: {
-      type: String,
-      default: 'OK'
-    },
+    buttonText: String,
     maskTransition: {
       type: String,
       default: 'vux-fade'

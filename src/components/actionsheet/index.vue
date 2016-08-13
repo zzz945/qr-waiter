@@ -6,7 +6,7 @@
         <div class="weui_actionsheet_cell" v-for="(key, text) in menus" @click="emitEvent('on-click-menu', key)" v-html="text">
         </div>
         <div class="vux-actionsheet-gap" v-if="showCancel"></div>
-        <div class="weui_actionsheet_cell vux-actionsheet-cancel" @click="emitEvent('on-click-menu', 'cancel')" v-if="showCancel">{{cancelText}}</div>
+        <div class="weui_actionsheet_cell vux-actionsheet-cancel" @click="emitEvent('on-click-menu', 'cancel')" v-if="showCancel">{{cancelText || __('cancel')}}</div>
       </div>
     </div>
   </div>
@@ -21,10 +21,7 @@ export default {
       twoWay: true
     },
     showCancel: Boolean,
-    cancelText: {
-      type: String,
-      default: 'cancel'
-    },
+    cancelText: String,
     menus: {
       type: Object,
       default: {}
