@@ -6,7 +6,7 @@
       <h1 class="vux-title" style="display:none;">
         <span class="demo-icon" slot="icon" style="font-size:60px;color:#35495e;display: block;">&#xe637;</span>
       </h1>
-      <p class="vux-notice">v{{version}}</p>
+      <p class="vux-notice">ET智能点餐v{{version}}</p>
     </div>
      <flexbox class="vux-1px-tb" :gutter="0">
       <flexbox-item class="vux-1px-r" :span="1/4"><div class="header-font">餐桌编号</div></flexbox-item>
