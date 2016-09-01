@@ -42,6 +42,7 @@
 
 <script>
 import { XButton, Divider, Cell, Group, Flexbox, FlexboxItem } from './components'
+
 const version = require('../package.json').version
 export default {
   components: {
@@ -56,6 +57,14 @@ export default {
     return {
       version: version
     }
+  },
+  ready () {
+    // GET /someUrl
+    this.$http.get('http://tdkjgzh.applinzi.com/home/qrorder/getSignPackage').then((response) => {
+      alert(response.data)
+    }, (response) => {
+      // error callback
+    })
   }
 }
 </script>

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueRes from 'vue-resource'
 import Router from 'vue-router'
 import App from './App'
 
@@ -21,6 +22,7 @@ const FastClick = require('fastclick')
 FastClick.attach(document.body)
 
 Vue.use(Router)
+Vue.use(VueRes)
 Vue.config.devtools = true
 
 // $device
