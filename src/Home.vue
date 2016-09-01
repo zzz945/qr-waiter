@@ -8,33 +8,34 @@
       </h1>
       <p class="vux-notice">v{{version}}</p>
     </div>
+     <flexbox class="vux-1px-tb" :gutter="0">
+      <flexbox-item class="vux-1px-r" :span="1/4"><div class="header-font">餐桌编号</div></flexbox-item>
+      <flexbox-item class="vux-1px-r" :span="1/4"><div class="header-font">55</div></flexbox-item>
+      <flexbox-item class="vux-1px-r" :span="1/4"><div class="header-font">订单总价(￥)</div></flexbox-item>
+      <flexbox-item :span="1/4"><div class="header-font">160</div></flexbox-item>
+    </flexbox>
+     <flexbox class="vux-1px-b" :gutter="0">
+      <flexbox-item class="vux-1px-r" :span="1/4"><div class="header-font">菜名</div></flexbox-item>
+      <flexbox-item class="vux-1px-r" :span="1/4"><div class="header-font">价格</div></flexbox-item>
+      <flexbox-item :span="1/2"><div class="header-font">数量</div></flexbox-item>
+    </flexbox>
     <group>
       <cell title="Demo" link="/demo" value="演示">
         <span class="demo-icon" slot="icon" style="color:#F70968">&#xe633;</span>
-      </cell>
-    </group>
-    <group>
-      <cell title="Buy me a coffee" link="project/donate">
-        <span class="demo-icon" slot="icon" style="color:red;">&#xe630;</span>
-        <div class="badge-value" slot="value" class="vux-center-v">
-          <badge text="捐赠"></badge>
-        </div>
-      </cell>
-      <cell title="Github" link="http://github.com/airyland/vux" value="Star me">
-        <span class="demo-icon" slot="icon" style="color:#35495e;">&#xe62f;</span>
       </cell>
     </group>
   </div>
 </template>
 
 <script>
-import { Cell, Group, Badge } from './components'
+import { Cell, Group, Flexbox, FlexboxItem } from './components'
 const version = require('../package.json').version
 export default {
   components: {
     Cell,
     Group,
-    Badge
+    Flexbox,
+    FlexboxItem
   },
   data () {
     return {
@@ -48,6 +49,9 @@ export default {
 @import './demos/style.css';
 .center {
   margin-top: 15px;
+  text-align: center;
+}
+.header-font {
   text-align: center;
 }
 .vux-notice {
