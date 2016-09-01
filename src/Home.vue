@@ -14,11 +14,24 @@
       <flexbox-item class="vux-1px-r" :span="1/4"><div class="header-font">订单总价(￥)</div></flexbox-item>
       <flexbox-item :span="1/4"><div class="header-font">160</div></flexbox-item>
     </flexbox>
-     <flexbox class="vux-1px-b" :gutter="0">
+    <divider>我的点餐</divider>
+    <flexbox class="vux-1px-tb" :gutter="0">
       <flexbox-item class="vux-1px-r" :span="1/4"><div class="header-font">菜名</div></flexbox-item>
       <flexbox-item class="vux-1px-r" :span="1/4"><div class="header-font">价格</div></flexbox-item>
       <flexbox-item :span="1/2"><div class="header-font">数量</div></flexbox-item>
     </flexbox>
+    <divider>END</divider>
+    <flexbox>
+        <flexbox-item>
+          <x-button type="primary">绑定餐桌</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button type="primary">提交订单</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button type="primary">取消订单</x-button>
+        </flexbox-item>
+      </flexbox>
     <group>
       <cell title="Demo" link="/demo" value="演示">
         <span class="demo-icon" slot="icon" style="color:#F70968">&#xe633;</span>
@@ -28,10 +41,12 @@
 </template>
 
 <script>
-import { Cell, Group, Flexbox, FlexboxItem } from './components'
+import { XButton, Divider, Cell, Group, Flexbox, FlexboxItem } from './components'
 const version = require('../package.json').version
 export default {
   components: {
+    XButton,
+    Divider,
     Cell,
     Group,
     Flexbox,
