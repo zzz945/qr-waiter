@@ -1,14 +1,7 @@
 <template>
   <div style="height:100%;">
     <loading :show="isLoading" text="努力" position="absolute" >加载中</loading>
-    <view-box v-ref:view-box>
-      <!--header slot-->
-      <!--default slot-->
-      <router-view
-      :transition="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')"
-      ></router-view>
-      <!--bottom slot-->
-    </view-box>
+    <router-view :transition="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')"></router-view>
   </div>
 </template>
 
