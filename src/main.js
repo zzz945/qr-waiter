@@ -72,35 +72,4 @@ router.map({
   }
 })
 
-// save position for demo page
-let demoScrollTop = 0
-function saveDemoScrollTop () {
-  alert(demoScrollTop)
-  demoScrollTop = window.scrollY
-}
-
-router.beforeEach(function (transition) {
-  if (transition.to.fullPath !== '/demo') {
-    window.removeEventListener('scroll', saveDemoScrollTop)
-  }
-  if (/\/http/.test(transition.to.path)) {
-    let url = transition.to.path.split('http')[1]
-    window.location.href = `http${url}`
-  } else {
-    transition.next()
-  }
-})
-
-router.afterEach(function (transition) {
-  if (transition.to.path !== '/demo') {
-
-  } else {
-    window.removeEventListener('scroll', saveDemoScrollTop)
-    setTimeout(function () {
-      window.scrollTo(0, 500)
-    }, 500)
-    window.addEventListener('scroll', saveDemoScrollTop)
-  }
-})
-
 router.start(App, '#app')

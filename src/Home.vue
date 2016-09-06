@@ -229,8 +229,7 @@ export default {
 }
 </script>
 
-<style>
-@import './demos/style.css';
+<style scoped>
 .table_center2 {
   text-align: center;
   margin:8px 0px 8px 0px;
@@ -258,9 +257,5 @@ export default {
   vertical-align: middle;
   text-align: center;
   color: #04BE02;
-}
-body {
-  font-family: Helvetica, sans-serif;
-  background-color: #fbf9fe;
 }
 </style>
