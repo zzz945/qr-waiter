@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRes from 'vue-resource'
 import Router from 'vue-router'
 import App from './App'
+import OrderFood from './subpages/orderFood'
+import SubmitOrder from './subpages/submitOrder'
+import Home from './Home'
 
 // plugins
 import Device from './plugins/device'
@@ -66,9 +69,16 @@ sync(store, router)
 
 router.map({
   '/': {
-    component: function (resolve) {
-      require(['./Home'], resolve)
-    }
+    name: '领取餐牌',
+    component: Home
+  },
+  '/subpages/orderFood': {
+    name: '点餐',
+    component: OrderFood
+  },
+  '/subpages/submitOrder': {
+    name: '提交订单',
+    component: SubmitOrder
   }
 })
 

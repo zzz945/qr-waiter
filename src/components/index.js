@@ -65,6 +65,7 @@ import Popover from './popover'
 import { ButtonTab, ButtonTabItem } from './button-tab'
 import { Checker, CheckerItem } from './checker'
 import { Flexbox, FlexboxItem } from './flexbox'
+import { Grids, Grid } from './grid'
 import { Step, StepItem } from './step'
 import { Timeline, TimelineItem } from './timeline'
 import { Tabbar, TabbarItem } from './tabbar'
@@ -88,6 +89,8 @@ const vux = {
   XTextarea,
   Flexbox,
   FlexboxItem,
+  Grids,
+  Grid,
   Tab,
   TabItem,
   Swiper,

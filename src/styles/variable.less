@@ -2,8 +2,12 @@
 
 @color-wechat-green: #04BE02;
 
-@theme-color: #04BE02;
-@opacity-disabled: 0.5;
+@theme-color:#DEB887;
+@theme-color-bg: #fff;
+@theme-color-fuzhu: #CEE9DD;
+@theme-color-dianjing: @color-wechat-green;
+@theme-color-text: #313325;
+@opacity-disabled: 0.5;  
 
 /**
 * Cell
@@ -19,8 +23,10 @@
 * Range
 */
 @range-opacity-disabled: @opacity-disabled;
-@range-color-bar-default: #a9acb1;
+@range-color-bar-default: @theme-color-text;
 @range-color-bar-active: @theme-color;
+@range-color-text: @theme-color-text;
+@range-color-handle: @theme-color-dianjing;
 
 /**
 * Tabbar
@@ -30,7 +36,7 @@
 /**
 * XHeader
 */
-@x-header-background-color: #35495e;
+@x-header-background-color: @theme-color-fuzhu;
 @x-header-title-color: #fff;
 @x-header-text-color: #ccc;
 @x-header-arrow-color: #ccc;

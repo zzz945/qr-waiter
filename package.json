@@ -1,7 +1,7 @@
 {
-  "name": "qr-order",
+  "name": "ET-qrorder",
   "version": "0.0.1",
-  "description": "Mobile web UI based on Vue and Weui",
+  "description": "ET qr order",
   "keywords": [
     "vux",
     "vue",
@@ -15,10 +15,10 @@
     "framework",
     "frontend"
   ],
-  "author": "airyland <airyland@qq.com>",
+  "author": "张岱岩 <642010820@qq.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/airyland/vux"
+    "url": "https://github.com/zzz945/qr-order.git"
   },
   "license": "MIT",
   "scripts": {
@@ -44,9 +44,15 @@
     "shake.js": "^1.2.2",
     "validator": "^5.1.0",
     "vconsole": "^2.4.0",
+    "vue-waterfall": "^0.2.3",
     "vux-blazy": "^1.6.4",
     "vux-xscroll": "^3.1.8",
     "we-jssdk": "^1.0.0",
+    "vue-router": "^0.7.11",
+    "vue": "^1.0.17",
+    "vuex": "^0.8.2",
+    "vuex-router-sync": "^2.1.0",
+    "vue-resource": "^0.9.3",
     "webp-support": "^1.0.3"
   },
   "devDependencies": {
@@ -95,16 +101,11 @@
     "postcss": "^5.0.21",
     "postcss-less": "^0.14.0",
     "rimraf": "^2.5.0",
-    "url-loader": "^0.5.7",
-    "vue": "^1.0.17",
+    "url-loader": "^0.5.7",  
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.2.0",
     "vue-loader": "^8.5.3",
-    "vue-resource": "^0.9.3",
-    "vue-router": "^0.7.11",
     "vue-style-loader": "^1.0.0",
-    "vuex": "^0.8.2",
-    "vuex-router-sync": "^2.1.0",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
