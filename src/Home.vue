@@ -4,9 +4,12 @@
       <div v-show="hasTableId" transition="table-card-in" class="table-card vux-center">
         <p>{{ tableid }}号桌</p>
       </div>
+      <div v-show="!hasTableId" transition="table-card-in" class="prompt vux-center">
+        <p>ET提示：请点击下方领取桌牌按钮，并按提示操作，点餐过程中请勿关闭此页面，祝您用餐愉快</p>
+      </div>
     </div>
     <div slot="bottom">
-      <x-button @click="scanTableId">领取桌牌</x-button>
+      <x-button v-show="showBtnGetTableCard" type="primary" @click="scanTableId">领取桌牌</x-button>
     </div>
   </view-box>
 </template>
@@ -25,10 +28,21 @@ export default {
     ViewBox
   },
   store: store,
+  vuex: {
+    getters: {
+      status: (state) => state.status
+    }
+  },
   data () {
     return {
       tableid: '?',
-      hasTableId: true
+      hasTableId: false
+    }
+  },
+  computed: {
+    showBtnGetTableCard () {
+      if (this.status === 0) return true
+      else return false
     }
   },
   methods: {
@@ -79,13 +93,19 @@ export default {
   @import './styles/animate.min.css';
   .table-card {
     background-color: @theme-color;
-    border: 10px solid @theme-color-fuzhu;
+    border: 5px solid @theme-color-fuzhu;
     color: @theme-color-dianjing;
     width: 50%;
     height: 80%;
     font-weight: 500;
     font-size: 32px;
     font-family: @bizFont;
+  }
+  .prompt {
+    font-family: @bizFont;
+    color: @theme-color-dianjing;
+    width: 50%;
+    height: 80%;
   }
   
   .table-card-wrap {

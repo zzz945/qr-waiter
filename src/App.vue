@@ -5,14 +5,16 @@
       <div slot="header">
         <div>
           <swiper :list="ad_list" auto :aspect-ratio="300/800" dots-position="center"></swiper>
-          <divider>点餐流程</divider>
-          <box gap="0px 30px">
-            <step :current.sync="order_step" background-color='#fbf9fe' gutter="20px">
-              <step-item title="获取桌牌"></step-item>
-              <step-item title="扫码点菜"></step-item>
-              <step-item title="提交订单"></step-item>
+          <div class="step_box" gap="10px 30px">
+            <div class="step_title vux-center">
+              <p>点餐步骤</p>
+            </div>
+            <step :current="orderStep" gutter="20px">
+              <step-item title="第一步" description="领取桌牌"></step-item>
+              <step-item title="第二步" description="扫码点餐"></step-item>
+              <step-item title="第三步" description="提交订单"></step-item>
             </step>
-          </box>
+          </div>
         </div>
       </div>
       <router-view></router-view>
@@ -52,9 +54,7 @@ export default {
       route: (state) => state.route,
       isLoading: (state) => state.isLoading,
       direction: (state) => state.direction,
-      status: (state) => state.status,
-      btnBackDisabled: (state) => state.btnBackDisabled,
-      btnNextDisabled: (state) => state.btnNextDisabled
+      status: (state) => state.status
     }
   },
   data () {
@@ -92,28 +92,38 @@ export default {
     showBtnNext () {
       if (this.status === 4 || this.status === 5) return false
       else return true
+    },
+    orderStep () {
+      if (this.status === 5) return 3
+      if (this.status >= 3) return 2
+      if (this.status >= 1) return 1
+      return 0
     }
   },
   methods: {
     btnBack () {
-      commit('UPDATE_STATUS', this.status - 1)
+      if (this.status === 2 || this.status === 3) {
+        commit('UPDATE_STATUS', 1)
+        this.$route.router.go('/')
+      } else if (this.status === 4 || this.status === 5) {
+        commit('UPDATE_STATUS', 3)
+        this.$route.router.go('/subpages/orderFood')
+      } else {
+        console.log('btnBack error:' + this.status)
+      }
       this.go()
     },
     btnNext () {
       commit('UPDATE_STATUS', this.status + 1)
-      this.go()
-    },
-    go () {
-      if (this.status === 0) {
-        this.$route.router.go('/')
-      } else if (this.status === 1) {
+      if (this.status === 1) {
+        commit('UPDATE_STATUS', 2)
         this.$route.router.go('/subpages/orderFood')
-      } else if (this.status === 2) {
+      } else if (this.status === 3) {
+        commit('UPDATE_STATUS', 4)
         this.$route.router.go('/subpages/submitOrder')
       } else {
         console.log('unknoew status:' + this.status)
       }
-      console.log('go () status:' + this.status)
     }
   },
   ready () {
@@ -205,5 +215,20 @@ export default {
   
   .vux-view-right-leave {
     animation-name: bounceOutLeft;
+  }
+</style>
+
+<style lang="less" scoped>
+  @import './styles/variable.less';
+  .step_box {
+    border-style: solid;
+    border-width: 2px 2px;
+    border-color: @theme-color-fuzhu;
+    padding: 20px 20px;
+    margin: 20px;
+  }
+  .step_title {
+    color: @theme-color-dianjing;
+    margin-bottom: 20px;
   }
 </style>
