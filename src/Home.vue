@@ -1,23 +1,24 @@
 <template>
   <view-box>
     <div class="table-card-wrap vux-center">
-      <div v-show="hasTableId" transition="table-card-in" class="table-card vux-center">
+      <div class="table-card vux-center" v-show="hasTableId" transition="table-card-in">
         <p>{{ tableid }}号桌</p>
       </div>
-      <div v-show="!hasTableId" transition="table-card-in" class="prompt vux-center">
-        <p>ET提示：请点击下方领取桌牌按钮，并按提示操作，点餐过程中请勿关闭此页面，祝您用餐愉快</p>
-      </div>
-    </div>
-    <div slot="bottom">
-      <x-button v-show="showBtnGetTableCard" type="primary" @click="scanTableId">领取桌牌</x-button>
+      <flexbox orient="vertical" :gutter="30" class="vux-center" v-show="!hasTableId" transition="table-card-in">
+        <flexbox-item class="btn-wrap" >
+          <x-button class="btn-class" v-show="showBtnGetTableCard" type="primary" @click="scanTableId">领取桌牌</x-button>
+        </flexbox-item>
+        <flexbox-item v-show="!hasTableId" transition="table-card-in" class="prompt vux-center">
+          <p>ET提示：请点击上方领取桌牌按钮，并按提示操作，点餐过程中请勿关闭此页面，祝您用餐愉快</p>
+        </flexbox-item>
+      </flexbox>
     </div>
   </view-box>
 </template>
-
 <script>
 import store from './vuex/store'
 const commit = store.commit || store.dispatch
-import { Alert, Divider, XButton, ViewBox } from './components'
+import { Alert, Divider, XButton, ViewBox, Flexbox, FlexboxItem } from './components'
 import wx from 'we-jssdk'
 
 export default {
@@ -25,7 +26,9 @@ export default {
     Alert,
     Divider,
     XButton,
-    ViewBox
+    ViewBox,
+    Flexbox,
+    FlexboxItem
   },
   store: store,
   vuex: {
@@ -101,12 +104,6 @@ export default {
     font-size: 32px;
     font-family: @bizFont;
   }
-  .prompt {
-    font-family: @bizFont;
-    color: @theme-color-dianjing;
-    width: 50%;
-    height: 80%;
-  }
   
   .table-card-wrap {
     width: 100%;
@@ -119,5 +116,26 @@ export default {
   
   .table-card-in-leave {
     animation-name: bounceOutRight;
+  }
+  
+  .prompt {
+    font-family: @bizFont;
+    color: @theme-color-dianjing;
+    width: 50%;
+  }
+  
+  .btn-class {
+    border-radius: 100%;
+    background-color: @theme-color-dianjing;
+    width: 100%;
+    height: 100%;
+    &:after {
+      border: 0px solid rgba(0, 0, 0, .2);
+    }
+  }
+  
+  .btn-wrap {
+    width: 200px;
+    height: 200px;
   }
 </style>
