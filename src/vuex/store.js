@@ -14,7 +14,9 @@ Vue.use(Vuex)
 const state = {
   isLoading: false,
   direction: 'forward',
-  status: 0
+  status: 0,
+  tableid: -1,
+  foodList: []
 }
 export default new Vuex.Store({
   state,
@@ -27,6 +29,15 @@ export default new Vuex.Store({
     },
     UPDATE_STATUS (state, status) {
       state.status = status
+    },
+    UPDATE_TABLEID (state, id) {
+      state.tableid = id
+    },
+    ADD_FOOD (state, food) {
+      state.foodList.push(food)
+    },
+    REMOVE_FOOD (state, food) {
+      state.foodList.$remove(food)
     }
   }
 })

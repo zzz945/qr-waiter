@@ -2,34 +2,26 @@
   <div style="height:100%;">
     <loading :show="isLoading" text="努力" position="absolute">加载中</loading>
     <view-box v-ref:view-box>
-      <div slot="header">
-        <div>
-          <swiper :list="ad_list" auto :aspect-ratio="300/800" dots-position="center"></swiper>
-          <div class="step_box" gap="10px 30px">
-            <div class="step_title vux-center">
-              <p>点餐步骤</p>
-            </div>
-            <step :current="orderStep" gutter="20px">
-              <step-item title="第一步" description="领取桌牌"></step-item>
-              <step-item title="第二步" description="扫码点餐"></step-item>
-              <step-item title="第三步" description="提交订单"></step-item>
-            </step>
-          </div>
+      <swiper :list="ad_list" auto :aspect-ratio="300/800" dots-position="center"></swiper>
+      <div class="step_box">
+        <div class="step_title">
+          <p>提示：{{prompt}}</p>
         </div>
+        <step :current="orderStep" background-color='#FFFAFA'>
+          <step-item title="第一步" description="领取桌牌"></step-item>
+          <step-item title="第二步" description="扫码点餐"></step-item>
+          <step-item title="第三步" description="提交订单"></step-item>
+        </step>
       </div>
-      <router-view></router-view>
-      <div slot="bottom">
-        <x-button @click="btnNext" v-show="showBtnNext" :disabled="btnNextDisabled">下一步</x-button>
-        <x-button @click="btnBack" :disabled="btnBackDisabled">返回</x-button>
-      </div>
+      <router-view :transition="viewTransition"></router-view>
     </view-box>
   </div>
 </template>
 
 <script>
 import store from './vuex/store'
-const commit = store.commit || store.dispatch
-import { Loading, ViewBox, Alert, Box, Step, StepItem, Swiper, XButton, Divider, Flexbox, FlexboxItem } from './components'
+import { setStatus } from './vuex/actions'
+import { Loading, ViewBox, Alert, Box, Step, StepItem, Swiper, XButton, Divider, Flexbox, FlexboxItem, XHeader, Masker } from './components'
 import wx from 'we-jssdk'
 import Vconsole from 'vconsole'
 
@@ -46,17 +38,22 @@ export default {
     Divider,
     Flexbox,
     FlexboxItem,
-    Vconsole
+    Vconsole,
+    XHeader,
+    Masker
   },
-  store: store,
   vuex: {
     getters: {
       route: (state) => state.route,
       isLoading: (state) => state.isLoading,
       direction: (state) => state.direction,
       status: (state) => state.status
+    },
+    actions: {
+      setStatus
     }
   },
+  store: store,
   data () {
     return {
       ad_list: [
@@ -81,49 +78,19 @@ export default {
     viewTransition () {
       return this.direction === 'forward' ? 'vux-view-left' : 'vux-view-right'
     },
-    btnBackDisabled () {
-      if (this.status === 0) return true
-      else return false
-    },
-    btnNextDisabled () {
-      if (this.status === 1 || this.status === 3) return false
-      else return true
-    },
-    showBtnNext () {
-      if (this.status === 4 || this.status === 5) return false
-      else return true
-    },
     orderStep () {
-      if (this.status === 5) return 3
-      if (this.status >= 3) return 2
-      if (this.status >= 1) return 1
+      if (this.status >= 4) return 2
+      if (this.status >= 2) return 1
       return 0
-    }
-  },
-  methods: {
-    btnBack () {
-      if (this.status === 2 || this.status === 3) {
-        commit('UPDATE_STATUS', 1)
-        this.$route.router.go('/')
-      } else if (this.status === 4 || this.status === 5) {
-        commit('UPDATE_STATUS', 3)
-        this.$route.router.go('/subpages/orderFood')
-      } else {
-        console.log('btnBack error:' + this.status)
-      }
-      this.go()
     },
-    btnNext () {
-      commit('UPDATE_STATUS', this.status + 1)
-      if (this.status === 1) {
-        commit('UPDATE_STATUS', 2)
-        this.$route.router.go('/subpages/orderFood')
-      } else if (this.status === 3) {
-        commit('UPDATE_STATUS', 4)
-        this.$route.router.go('/subpages/submitOrder')
-      } else {
-        console.log('unknoew status:' + this.status)
-      }
+    prompt () {
+      if (this.status === 0) return '请领取桌牌'
+      else if (this.status === 1) return '您已获取桌牌，请进入下一步进行点餐'
+      else if (this.status === 2) return '请扫码点餐'
+      else if (this.status === 3) return '请继续点餐'
+      else if (this.status === 4) return '请核对订单'
+      else if (this.status === 5) return '您的订单已提交，后厨为您准备中，请稍等'
+      else console.log('prompt error:' + this.status)
     }
   },
   ready () {
@@ -152,9 +119,10 @@ export default {
 </script>
 
 <style lang="less">
-  @import 'styles/index.less';
-  @import 'styles/weui/weui.less';
+  @import './styles/index.less';
+  @import './styles/weui/weui.less';
   @import './styles/variable.less';
+  @import './styles/animate.css';
   html,
   body {
     height: 100%;
@@ -182,6 +150,7 @@ export default {
 * vue-router transition
 */
   
+  .card-in-transition,
   .vux-view-left-transition,
   .vux-view-right-transition {
     width: 100%;
@@ -190,6 +159,8 @@ export default {
     backface-visibility: hidden;
   }
   
+  .card-in-enter,
+  .card-in-leave,
   .vux-view-left-enter,
   .vux-view-left-leave,
   .vux-view-right-enter,
@@ -198,6 +169,14 @@ export default {
     height: 100%;
     position: absolute;
     left: 0;
+  }
+  
+  .card-in-enter {
+    animation-name: rollIn
+  }
+  
+  .card-in-leave {
+    animation-name: rollOut
   }
   
   .vux-view-left-enter {
@@ -220,15 +199,16 @@ export default {
 
 <style lang="less" scoped>
   @import './styles/variable.less';
+  @import './styles/index.less';
   .step_box {
-    border-style: solid;
-    border-width: 2px 2px;
-    border-color: @theme-color-fuzhu;
-    padding: 20px 20px;
-    margin: 20px;
+    padding: 10px 30px;
+    margin: 10px;
+    .vux-1px-b;
   }
+  
   .step_title {
     color: @theme-color-dianjing;
     margin-bottom: 20px;
+    .vux-center-h;
   }
 </style>

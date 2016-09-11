@@ -1,24 +1,23 @@
 <template>
-  <view-box>
-    <div class="table-card-wrap vux-center">
-      <div class="table-card vux-center" v-show="hasTableId" transition="table-card-in">
+  <div style="width=100%;">
+    <div class="table-card-pos" v-show="hasTableId" transition="card-in">
+      <div class="table-card">
         <p>{{ tableid }}号桌</p>
       </div>
-      <flexbox orient="vertical" :gutter="30" class="vux-center" v-show="!hasTableId" transition="table-card-in">
-        <flexbox-item class="btn-wrap" >
-          <x-button class="btn-class" v-show="showBtnGetTableCard" type="primary" @click="scanTableId">领取桌牌</x-button>
-        </flexbox-item>
-        <flexbox-item v-show="!hasTableId" transition="table-card-in" class="prompt vux-center">
-          <p>ET提示：请点击上方领取桌牌按钮，并按提示操作，点餐过程中请勿关闭此页面，祝您用餐愉快</p>
-        </flexbox-item>
-      </flexbox>
     </div>
-  </view-box>
+    <div class="get-card-pos" v-show="!hasTableId">
+      <div class="round-btn-wrap">
+        <x-button class="round-btn-class" type="primary" @click="scanTableId">领取桌牌</x-button>
+      </div>
+    </div>
+    <div class="footer_box">
+      <x-button class="next_btn" @click="btnNext" :disabled="btnNextDisabled">下一步</x-button>
+    </div>
+  </div>
 </template>
 <script>
-import store from './vuex/store'
-const commit = store.commit || store.dispatch
-import { Alert, Divider, XButton, ViewBox, Flexbox, FlexboxItem } from './components'
+import * as actions from './vuex/actions'
+import { Alert, Divider, XButton, ViewBox, Flexbox, FlexboxItem, Badge } from './components'
 import wx from 'we-jssdk'
 
 export default {
@@ -27,28 +26,39 @@ export default {
     Divider,
     XButton,
     ViewBox,
+    Badge,
     Flexbox,
     FlexboxItem
   },
-  store: store,
   vuex: {
     getters: {
-      status: (state) => state.status
-    }
+      status: (state) => state.status,
+      tableid: (state) => state.tableid
+    },
+    actions: actions
   },
   data () {
     return {
-      tableid: '?',
-      hasTableId: false
     }
   },
   computed: {
-    showBtnGetTableCard () {
+    hasTableId () {
+      if (this.tableid === -1) return false
+      else return true
+    },
+    btnNextDisabled () {
       if (this.status === 0) return true
       else return false
     }
   },
+  ready () {
+    if (this.status !== 0) this.setStatus(1)
+  },
   methods: {
+    btnNext () {
+      this.setStatus(2)
+      this.$route.router.go('/subpages/orderFood')
+    },
     scanTableId () {
       let _this = this
       _this.$vux.alert.show({
@@ -69,9 +79,8 @@ export default {
             if (result.TABLE_ID === undefined) {
               throw new Error('TABLE_ID is undefined')
             }
-            _this.tableid = result.TABLE_ID
-            this.hasTableId = true
-            commit('UPDATE_STATUS', this.status + 1)
+            this.setStatus(1)
+            this.setTableId(result.TABLE_ID)
           } catch (e) {
             console.log('_scanTableId:' + e)
             _this.$vux.alert.show({
@@ -90,52 +99,54 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import 'styles/index.less';
+  @import './styles/index.less';
   @import './styles/variable.less';
-  @import 'styles/weui/weui.less';
-  @import './styles/animate.min.css';
-  .table-card {
-    background-color: @theme-color;
-    border: 5px solid @theme-color-fuzhu;
-    color: @theme-color-dianjing;
-    width: 50%;
-    height: 80%;
-    font-weight: 500;
-    font-size: 32px;
-    font-family: @bizFont;
-  }
-  
-  .table-card-wrap {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .table-card-in-enter {
-    animation-name: bounceInLeft;
-  }
-  
-  .table-card-in-leave {
-    animation-name: bounceOutRight;
-  }
-  
-  .prompt {
-    font-family: @bizFont;
-    color: @theme-color-dianjing;
-    width: 50%;
-  }
-  
-  .btn-class {
-    border-radius: 100%;
-    background-color: @theme-color-dianjing;
-    width: 100%;
-    height: 100%;
-    &:after {
-      border: 0px solid rgba(0, 0, 0, .2);
+  @import './styles/weui/weui.less';
+  .table-card-pos {
+    margin-top: 20px;
+    .vux-center;
+    .table-card {
+      background-color: @theme-color;
+      border: 5px solid @theme-color-fuzhu;
+      color: @theme-color-fuzhu;
+      width: 100px;
+      height: 200px;
+      font-weight: 500;
+      font-size: 24px;
+      font-family: @bizFont;
+      .vux-center;
     }
   }
   
-  .btn-wrap {
-    width: 200px;
-    height: 200px;
+  .get-card-pos {
+    margin-top: 40px;
+    .vux-center-h;
+    .round-btn-wrap {
+      width: 100px;
+      height: 100px;
+      .round-btn-class {
+        border-radius: 100%;
+        width: 100%;
+        height: 100%;
+        &:after {
+          border-radius: 100%;
+        }
+      }
+    }
+  }
+  
+  .footer_box {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    .next_btn {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      &:after {
+        border-radius: 0;
+      }
+    }
   }
 </style>
