@@ -8,11 +8,11 @@
     <flexbox class="bottom-box" v-show="!is_empty">
       <flexbox-item class="gwc-item" :span="1/4"></flexbox-item>
       <flexbox-item class="bottom-item" :span="1/4">
-        <div class="bottom-text">共￥{{total_price}}</div>
+        <div class="bottom-text">共￥{{totalPrice}}</div>
       </flexbox-item>
       <flexbox-item class="bottom-item" :span="1/6"></flexbox-item>
       <flexbox-item class="bottom-item">
-        <div class="ok_btn">点好了</div>
+        <a v-link="{ path: '/subpages/submitOrder' }" class="ok_btn">点好了</a>
       </flexbox-item>
     </flexbox>
     <flexbox class="bottom-box" v-show="is_empty">
@@ -23,7 +23,6 @@
       <flexbox-item class="bottom-item" :span="1/4"></flexbox-item>
     </flexbox>
     <div class="gwc-pos" v-show="!is_empty">
-      <!--     <a v-link="{ path: '/subpages/submitOrder' }"> -->
       <a v-on:click="gwc_show=!gwc_show">
         <img src="http://tdkjgzh.applinzi.com/Public/qr-order/img/gwc.png" />
         <sup><badge :text="food_count"></badge></sup>
@@ -57,6 +56,7 @@
 
 <script>
 import * as actions from '../vuex/actions'
+import { totalPrice } from '../vuex/getters'
 import { XButton, Badge, Flexbox, FlexboxItem, Confirm, Actionsheet } from '../components'
 import ShoppingCart from './shoppingCart'
 import wx from 'we-jssdk'
@@ -75,7 +75,8 @@ export default {
     getters: {
       status: (state) => state.status,
       tableid: (state) => state.tableid,
-      food_list: (state) => state.foodList
+      food_list: (state) => state.foodList,
+      totalPrice
     },
     actions: actions
   },
@@ -87,13 +88,6 @@ export default {
     }
   },
   computed: {
-    total_price: function () {
-      let sum = 0
-      for (let i = 0; i < this.food_list.length; i++) {
-        sum += parseInt(this.food_list[i].PRICE) * this.food_list[i].NUM
-      }
-      return sum
-    },
     food_count: function () {
       return this.food_list.length
     },
@@ -108,9 +102,17 @@ export default {
   methods: {
     onConfirm () {
       if (this.food.NUM !== 0) {
+        for (let i = 0; i < this.food_list.length; i++) {
+          if (this.food_list[i].NAME === this.food.NAME) {
+            console.log('onConfirm find')
+            this.changeFoodNum({'idx': i, 'num': this.food_list[i].NUM + this.food.NUM})
+            return
+          }
+        }
+
         this.addFood(this.food)
         this.setStatus(3)
-        console.log('onConfirm')
+        console.log('onConfirm totalPrice' + this.totalPrice)
         console.log(this.food)
       }
     },
@@ -233,6 +235,7 @@ export default {
       .vux-center;
     }
     .ok_btn {
+      display: block;
       width: 100%;
       height: 100%;
       background-color: @theme-color;

@@ -94,6 +94,12 @@ export default {
     }
   },
   ready () {
+    var storage = window.localStorage
+    if (!storage.getItem('pageLoadCount')) storage.setItem('pageLoadCount', 0)
+    storage.pageLoadCount = parseInt(storage.getItem('pageLoadCount')) + 1
+    console.log('pageLoadCount:' + storage.pageLoadCount)
+    console.log('arg_openid:' + document.getElementById('arg_openid').innerHTML)
+
     // GET /someUrl
     this.$http.get('http://tdkjgzh.applinzi.com/home/qrorder/getSignPackage').then((response) => {
       var result = JSON.parse(response.data)
