@@ -33,11 +33,24 @@ export default new Vuex.Store({
     UPDATE_TABLEID (state, id) {
       state.tableid = id
     },
+    SET_FOOD_LIST (state, list) {
+      state.foodList = list
+    },
     ADD_FOOD (state, food) {
       state.foodList.push(food)
     },
     REMOVE_FOOD (state, food) {
       state.foodList.$remove(food)
+    },
+    PLUS_FOOD_NUM (state, idx) {
+      state.foodList[idx].NUM += 1
+    },
+    MINUS_FOOD_NUM (state, idx) {
+      if (state.foodList[idx].NUM === 1) {
+        state.foodList.splice(idx, 1)
+      } else {
+        state.foodList[idx].NUM -= 1
+      }
     }
   }
 })

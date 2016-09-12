@@ -23,7 +23,8 @@
       <flexbox-item class="bottom-item" :span="1/4"></flexbox-item>
     </flexbox>
     <div class="gwc-pos" v-show="!is_empty">
-      <a v-link="{ path: '/subpages/submitOrder' }">
+      <!--     <a v-link="{ path: '/subpages/submitOrder' }"> -->
+      <a v-on:click="gwc_show=!gwc_show">
         <img src="http://tdkjgzh.applinzi.com/Public/qr-order/img/gwc.png" />
         <sup><badge :text="food_count"></badge></sup>
       </a>
@@ -36,26 +37,28 @@
     <confirm :show.sync="show_confirm" :title="confirm_title" confirm-text="确定" cancel-text="取消" @on-cancel="onCancel" @on-confirm="onConfirm"
       @on-show="onShow" @on-hide="onHide">
       <flexbox>
-        <flexbox-item class="bottom_item" :span="1/4">
+        <flexbox-item :span="1/4">
           <div>￥{{ parseInt(this.food.PRICE) * this.food.NUM }}</div>
         </flexbox-item>
-        <flexbox-item class="bottom_item" :span="1/4">
-          <div v-on:click="plusFoodNum"><img src="http://tdkjgzh.applinzi.com/Public/qr-order/img/add-24.png" /></div>
+        <flexbox-item :span="1/4">
+          <div v-on:click="plusCurFoodNum"><img src="http://tdkjgzh.applinzi.com/Public/qr-order/img/add-24.png" /></div>
         </flexbox-item>
-        <flexbox-item class="bottom_item" :span="1/4">
+        <flexbox-item :span="1/4">
           <div>{{ 1 * this.food.NUM }}</div>
         </flexbox-item>
-        <flexbox-item class="bottom_item" :span="1/4">
-          <div v-on:click="minusFoodNum"><img src="http://tdkjgzh.applinzi.com/Public/qr-order/img/remove-24.png" /></div>
+        <flexbox-item :span="1/4">
+          <div v-on:click="minusCurFoodNum"><img src="http://tdkjgzh.applinzi.com/Public/qr-order/img/remove-24.png" /></div>
         </flexbox-item>
       </flexbox>
     </confirm>
+    <shopping-cart :show.sync="gwc_show" :menus="gwc_menu"></shopping-cart>
   </div>
 </template>
 
 <script>
 import * as actions from '../vuex/actions'
-import { XButton, Badge, Flexbox, FlexboxItem, Confirm } from '../components'
+import { XButton, Badge, Flexbox, FlexboxItem, Confirm, Actionsheet } from '../components'
+import ShoppingCart from './shoppingCart'
 import wx from 'we-jssdk'
 
 export default {
@@ -64,7 +67,9 @@ export default {
     Badge,
     Flexbox,
     FlexboxItem,
-    Confirm
+    Confirm,
+    Actionsheet,
+    ShoppingCart
   },
   vuex: {
     getters: {
@@ -77,7 +82,8 @@ export default {
   data () {
     return {
       food: {},
-      show_confirm: false
+      show_confirm: false,
+      gwc_show: false
     }
   },
   computed: {
@@ -117,10 +123,10 @@ export default {
     onShow () {
       console.log('on show')
     },
-    plusFoodNum () {
+    plusCurFoodNum () {
       this.food.NUM = this.food.NUM + 1
     },
-    minusFoodNum () {
+    minusCurFoodNum () {
       if (this.food.NUM !== 0) {
         this.food.NUM = this.food.NUM - 1
       }
@@ -202,6 +208,7 @@ export default {
     left: 12px;
     width: 60px;
     height: 48px;
+    z-index: 5002;
     position: absolute;
     a {
       line-height: 0;
@@ -214,6 +221,7 @@ export default {
     height: 48px;
     position: absolute;
     bottom: 0;
+    z-index: 5001;
     background-color: @theme-color-fuzhu2;
     .bottom-item {
       height: 100%;
