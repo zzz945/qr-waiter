@@ -11,16 +11,9 @@
         <div class="bottom-text">共￥{{totalPrice}}</div>
       </flexbox-item>
       <flexbox-item class="bottom-item" :span="1/6"></flexbox-item>
-      <flexbox-item class="bottom-item">
-        <a v-link="{ path: '/subpages/submitOrder' }" class="ok_btn">点好了</a>
+      <flexbox-item class="bottom-item" v-on:click="btnOk">
+        <div class="ok_btn">点好了</div>
       </flexbox-item>
-    </flexbox>
-    <flexbox class="bottom-box" v-show="is_empty">
-      <flexbox-item class="bottom-item" :span="1/4"></flexbox-item>
-      <flexbox-item class="bottom-item" :span="1/2">
-        <p class="bottom-text">购物车是空的</p>
-      </flexbox-item>
-      <flexbox-item class="bottom-item" :span="1/4"></flexbox-item>
     </flexbox>
     <div class="gwc-pos" v-show="!is_empty">
       <a v-on:click="gwc_show=!gwc_show">
@@ -28,6 +21,13 @@
         <sup><badge :text="food_count"></badge></sup>
       </a>
     </div>
+    <flexbox class="bottom-box" v-show="is_empty">
+      <flexbox-item class="bottom-item" :span="1/4"></flexbox-item>
+      <flexbox-item class="bottom-item" :span="1/2">
+        <p class="bottom-text">购物车是空的</p>
+      </flexbox-item>
+      <flexbox-item class="bottom-item" :span="1/4"></flexbox-item>
+    </flexbox>
     <div class="gwc-pos" v-show="is_empty">
       <a>
         <img src="http://tdkjgzh.applinzi.com/Public/qr-order/img/gwc2.png" />
@@ -100,6 +100,10 @@ export default {
     }
   },
   methods: {
+    btnOk () {
+      this.setStatus(4)
+      this.$route.router.go('/subpages/submitOrder')
+    },
     onConfirm () {
       if (this.food.NUM !== 0) {
         for (let i = 0; i < this.food_list.length; i++) {
@@ -202,44 +206,6 @@ export default {
           border-radius: 100%;
         }
       }
-    }
-  }
-  
-  .gwc-pos {
-    bottom: 12px;
-    left: 12px;
-    width: 60px;
-    height: 48px;
-    z-index: 5002;
-    position: absolute;
-    a {
-      line-height: 0;
-      font-size: 0;
-    }
-  }
-  
-  .bottom-box {
-    width: 100%;
-    height: 48px;
-    position: absolute;
-    bottom: 0;
-    z-index: 5001;
-    background-color: @theme-color-fuzhu2;
-    .bottom-item {
-      height: 100%;
-    }
-    .bottom-text {
-      width: 100%;
-      height: 100%;
-      color: #fff;
-      .vux-center;
-    }
-    .ok_btn {
-      display: block;
-      width: 100%;
-      height: 100%;
-      background-color: @theme-color;
-      .vux-center;
     }
   }
 </style>

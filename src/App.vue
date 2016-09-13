@@ -106,12 +106,12 @@ export default {
       console.log('getSignPackage:' + response.data)
 
       wx.config({
-        debug:	true,
+        debug:	false,
         appId:	result.appId,
         timestamp:	result.timestamp,
         nonceStr:	result.nonceStr,
         signature:	result.signature,
-        jsApiList:	['scanQRCode']
+        jsApiList:	['scanQRCode', 'closeWindow']
       })
 
       wx.ready(() => {
@@ -151,6 +151,45 @@ export default {
     vertical-align: middle;
     text-align: center;
     color: @theme-color-text;
+  }
+
+  .gwc-pos {
+    bottom: 12px;
+    left: 12px;
+    width: 60px;
+    height: 48px;
+    z-index: 5002;
+    position: absolute;
+    a {
+      line-height: 0;
+      font-size: 0;
+    }
+  }
+
+  .bottom-box {
+    width: 100%;
+    height: 48px;
+    position: absolute;
+    bottom: 0;
+    z-index: 5001;
+    background-color: @theme-color-fuzhu2;
+    .bottom-item {
+      height: 100%;
+    }
+    .bottom-text {
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      .vux-center;
+    }
+    .ok_btn {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: @theme-color;
+      color: @theme-color-text;
+      .vux-center;
+    }
   }
   /**
 * vue-router transition

@@ -10,8 +10,19 @@
         <x-button class="round-btn-class" type="primary" @click="scanTableId">领取桌牌</x-button>
       </div>
     </div>
-    <div class="footer_box">
-      <x-button class="next_btn" @click="btnNext" :disabled="btnNextDisabled">下一步</x-button>
+    <flexbox class="bottom-box">
+      <flexbox-item class="bottom-item" :span="1/4"></flexbox-item>
+      <flexbox-item class="bottom-item" :span="1/2">
+        <p class="bottom-text">购物车是空的</p>
+      </flexbox-item>
+      <flexbox-item class="bottom-item" :span="1/4" v-show="!btnNextDisabled" v-on:click="btnNext">
+        <div class="ok_btn">下一步</div>
+      </flexbox-item>
+    </flexbox>
+    <div class="gwc-pos">
+      <a>
+        <img src="http://tdkjgzh.applinzi.com/Public/qr-order/img/gwc2.png" />
+      </a>
     </div>
   </div>
 </template>
@@ -131,21 +142,6 @@ export default {
         &:after {
           border-radius: 100%;
         }
-      }
-    }
-  }
-  
-  .footer_box {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    .next_btn {
-      width: 100%;
-      height: 100%;
-      border-radius: 0;
-      &:after {
-        border-radius: 0;
       }
     }
   }
