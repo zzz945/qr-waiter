@@ -1,13 +1,11 @@
 <template>
   <div style="width=100%;">
-    <div class="table-card-pos" v-show="hasTableId" transition="card-in">
-      <div class="table-card">
-        <p>{{ tableid }}号桌</p>
-      </div>
-    </div>
-    <div class="get-card-pos" v-show="!hasTableId">
-      <div class="round-btn-wrap">
+    <div class="table-card-pos" >
+      <div class="round-btn-wrap" v-show="!hasTableId">
         <x-button class="round-btn-class" type="primary" @click="scanTableId">领取桌牌</x-button>
+      </div>
+      <div class="table-card" v-show="hasTableId" transition="card-in">
+        <p>{{ tableid }}号桌</p>
       </div>
     </div>
     <flexbox class="bottom-box">
@@ -114,9 +112,9 @@ export default {
   @import './styles/variable.less';
   @import './styles/weui/weui.less';
   .table-card-pos {
-    margin-top: 20px;
-    .vux-center;
+    .vux-center-h;
     .table-card {
+      margin-top: 20px;
       background-color: @theme-color;
       border: 5px solid @theme-color-fuzhu;
       color: @theme-color-fuzhu;
@@ -127,12 +125,8 @@ export default {
       font-family: @bizFont;
       .vux-center;
     }
-  }
-  
-  .get-card-pos {
-    margin-top: 40px;
-    .vux-center-h;
     .round-btn-wrap {
+      margin-top: 40px;
       width: 100px;
       height: 100px;
       .round-btn-class {

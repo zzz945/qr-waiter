@@ -53,30 +53,26 @@ export default {
   },
   methods: {
     btnOk () {
-      let openId = document.getElementById('arg_openid').innerHTML
-      console.log(openId)
+      let openid = document.getElementById('arg_openid').innerHTML
 
-    /*  let foodList = []
+      let foodList = []
       for (let i = 0; i < this.food_list.length; i++) {
         foodList.push(JSON.stringify(this.food_list[i]))
-      }*/
+      }
 
-     /* let params = {
-        open_id: open_id,
+      let params = {
+        openid: openid,
         r_id: '11',
         t_id: '55',
-        food_list: this.food_list
-      }*/
+        food_list: JSON.stringify(foodList)
+      }
 
-      // params = JSON.stringify(params_json)
-
-      /* this.$http.get('http://tdkjgzh.applinzi.com/home/qrorder/submitOrder').then((response) => {
-        var result = JSON.parse(response.data)
-          console.log('submitOrder:' + response.data)
-        }, (response) => {
-          console.log('get http://tdkjgzh.applinzi.com/home/qrorder/submitOrder failed')
-        })
-      }*/
+      this.$http.get('http://tdkjgzh.applinzi.com/Home/Qrorder/submitOrder', {params: params}).then((response) => {
+        console.log('submitOrder:' + response.data)
+      }, (response) => {
+        console.log('submitOrder failed:')
+        console.log(response)
+      })
 
       this.$vux.alert.show({
         title: '提示',

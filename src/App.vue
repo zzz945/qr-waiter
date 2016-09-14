@@ -217,11 +217,11 @@ export default {
   }
   
   .card-in-enter {
-    animation-name: rollIn
+    animation-name: fadeIn
   }
   
   .card-in-leave {
-    animation-name: rollOut
+    animation-name: fadeOut
   }
   
   .vux-view-left-enter {
