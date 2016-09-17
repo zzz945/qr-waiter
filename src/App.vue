@@ -1,6 +1,9 @@
 <template>
   <div style="height:100%;">
     <loading :show="isLoading" text="努力" position="absolute">加载中</loading>
+    <div class="title">
+      <p>ET智慧餐厅前台</p>
+    </div>
     <router-view :transition="viewTransition"></router-view>
   </div>
 </template>
@@ -34,6 +37,8 @@ export default {
 <style lang="less">
   @import './styles/index.less';
   @import './styles/variable.less';
+  @import './styles/weui/weui.less';
+  @import './styles/animate.css';
   html,
   body {
     height: 100%;
@@ -48,7 +53,7 @@ export default {
   .vux-title {
     vertical-align: middle;
     text-align: center;
-    color: @theme-color-text;
+    color: @theme-color-fuzhu2;
     margin: 10px 10px 10px 10px;
   }
   
@@ -57,10 +62,22 @@ export default {
     text-align: center;
     color: @theme-color-text;
   }
-
-/**
+  
+  .title {
+    width: 100%;
+    padding: 10px 0px;
+    .vux-center;
+    p {
+      color: @theme-color-dianjing;
+      font-weight: 500;
+      font-size: 24px;
+      font-family: @bizFont;
+    }
+  }
+  /**
 * vue-router transition
 */
+  
   .vux-view-left-transition,
   .vux-view-right-transition {
     width: 100%;
