@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../site/static'),
-    publicPath: 'http://tdkjgzh.applinzi.com/Public/qr-backend/',
+    publicPath: 'http://tdkjgzh.applinzi.com/Public/qr-waiter/',
     filename: '[name].js'
   },
   stats: {

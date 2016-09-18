@@ -2,7 +2,7 @@
   <div style="height:100%;">
     <loading :show="isLoading" text="努力" position="absolute">加载中</loading>
     <div class="title">
-      <p>ET智慧餐厅前台</p>
+      <p>ET餐厅服务</p>
     </div>
     <router-view :transition="viewTransition"></router-view>
   </div>
@@ -65,6 +65,7 @@ export default {
   
   .title {
     width: 100%;
+    height: 10%;
     padding: 10px 0px;
     .vux-center;
     p {
