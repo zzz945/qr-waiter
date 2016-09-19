@@ -7,18 +7,18 @@
         <div class="round-btn" v-on:click="sendMsg('茶水')">茶水</div>
       </a>
       <a class="round-btn-box">
-        <div class="round-btn" v-on:click="sendMsg('酒水')">酒水</div>
+        <div class="round-btn" v-on:click="sendMsg('催一催')">催一催</div>
       </a>
       <a class="round-btn-box">
-        <div class="round-btn" v-on:click="sendMsg('点菜')">点菜</div>
+        <div class="round-btn" v-on:click="sendMsg('上主食')">上主食</div>
       </a>
     </div>
     <div>
       <a class="round-btn-box">
-        <div class="round-btn" v-on:click="sendMsg('餐具')">餐具</div>
+        <div class="round-btn" v-on:click="sendMsg('再来啤酒')">再来啤酒</div>
       </a>
       <a class="round-btn-box">
-        <div class="round-btn" v-on:click="sendMsg('空调')">空调</div>
+        <div class="round-btn" v-on:click="sendMsg('再来白酒')">再来白酒</div>
       </a>
       <a class="round-btn-box">
         <div class="round-btn" v-on:click="sendMsg('热菜')">热菜</div>
@@ -26,10 +26,21 @@
     </div>
     <div>
       <a class="round-btn-box">
+        <div class="round-btn" v-on:click="sendMsg('加个菜')">加个菜</div>
+      </a>
+      <a class="round-btn-box">
         <div class="round-btn" v-on:click="sendMsg('火锅加汤')">火锅加汤</div>
       </a>
       <a class="round-btn-box">
         <div class="round-btn" v-on:click="sendMsg('烧烤换纸')">烧烤换纸</div>
+      </a>
+    </div>
+    <div>
+      <a class="round-btn-box">
+        <div class="round-btn" v-on:click="sendMsg('瓶起子')">瓶起子</div>
+      </a>
+      <a class="round-btn-box">
+        <div class="round-btn" v-on:click="sendMsg('餐具不够')">餐具不够</div>
       </a>
       <a class="round-btn-box">
         <div class="round-btn" v-on:click="sendMsg('叫服务员')">叫服务员</div>
@@ -66,9 +77,9 @@ export default {
       let params = {
         r_id: _this.rId,
         t_id: _this.tId,
-        msg: _this.msg
+        type: _this.msg
       }
-      _this.$http.get('http://tdkjgzh.applinzi.com/home/qrwaiter/addMsg', {params: params}).then((response) => {
+      _this.$http.get('http://tdkjgzh.applinzi.com/home/qrorder/addNewMsg', {params: params}).then((response) => {
         _this.$vux.alert.show({
           title: '提示',
           content: '您的消息已发送到前台，请稍等',

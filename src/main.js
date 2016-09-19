@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRes from 'vue-resource'
 import Router from 'vue-router'
 import App from './App'
-import FoodList from './subpages/foodList'
 import Home from './Home'
 
 // plugins
@@ -70,10 +69,6 @@ router.map({
   '/': {
     name: '消息列表',
     component: Home
-  },
-  '/subpages/foodList': {
-    name: '菜单',
-    component: FoodList
   }
 })
 
